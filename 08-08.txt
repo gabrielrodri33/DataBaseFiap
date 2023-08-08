@@ -1,0 +1,90 @@
+SELECT 'Ola mundo' AS texto FROM DUAL;
+SELECT 'Ola mundo' AS "teste de uso do Oracle" FROM DUAL;
+SELECT 'Ola mundo' AS Teste_de_uso_do_Oracle FROM DUAL; 
+
+SELECT 50*50 AS "Conta teste" FROM DUAL;
+
+-- DDL 
+-- CREATE TABLE / USER / VIEW /...
+DROP TABLE tbl_funcionarios_rm98626;
+CREATE TABLE tbl_funcionarios_rm98626(
+    id_funcionario INTEGER     NOT NULL,
+    nome           VARCHAR(30) NOT NULL,
+    endereco       VARCHAR(50) NOT NULL,
+    numero         VARCHAR(30) NOT NULL,
+    bairro         VARCHAR(40) NOT NULL,
+    complemento    VARCHAR(30),
+    cidade         VARCHAR(30) NOT NULL,
+    estado         VARCHAR(2)  NOT NULL,
+    telefone       VARCHAR(15) NOT NULL,
+    PRIMARY KEY ( id_funcionario)
+    --- Primary key (id_funcionario, campo... )
+);
+
+
+INSERT INTO tbl_funcionarios_rm98626 (id_funcionario, nome, endereco, numero, bairro, complemento, cidade, estado, telefone)
+VALUES (1,
+    'Maria',
+    'Avenida Paulista',
+    '123',
+    'Paulista',
+    'Sao Palo',
+    'SP',
+    'SP'
+);
+
+DROP TABLE tbl_funcionarios2_98626;
+CREATE TABLE tbl_funcionarios2_98626(
+    id_funcionario INTEGER     NOT NULL,
+    nome           VARCHAR(30) NOT NULL,
+    endereco       VARCHAR(50) NOT NULL,
+    numero         VARCHAR(30) NOT NULL,
+    bairro         VARCHAR(40) NOT NULL,
+    complemento    VARCHAR(30),
+    cidade         VARCHAR(30) NOT NULL,
+    estado         VARCHAR(2)  NOT NULL,
+    telefone       VARCHAR(15) NOT NULL,
+    id_encarregado INTEGER REFERENCES tbl_funcionarios2_98626 (id_funcionario),
+    PRIMARY KEY ( id_funcionario )
+)
+
+INSERT INTO tbl_funcionarios2_98626 (id_funcionario, nome, endereco, numero, bairro, complemento, cidade, estado, telefone, id_encarregado)
+VALUES (2,
+    'Joao',
+    'Avenida Paulista',
+    '123',
+    'Paulista',
+    'Jardim Leonor',
+    'SÃO PAULO',
+    'SP',
+    'NUMERO TELEFONE',
+    1);
+    
+SELECT * FROM tbl_funcionarios2_98626;
+
+
+
+
+DROP TABLE tbl_telefone_98626;
+CREATE TABLE tbl_telefone_98626(
+    id_telefone INTEGER PRIMARY KEY,
+    numero_telefone VARCHAR(20) NOT NULL,
+    observacao VARCHAR(30),
+    id_funcionario INTEGER REFERENCES tbl_funcionarios2_98626 (id_funcionario)
+)
+
+INSERT INTO tbl_telefone_98626 (id_telefone, numero_telefone, observacao)
+VALUES (2,
+        '11956378491',
+        'sla');
+        
+SELECT * FROM tbl_telefone_98626;
+
+
+
+DROP TABLE tbl_funcoes_98626;
+CREATE TABLE tbl_funcoes_98626(
+    id_funcao INTEGER NOT NULL,
+    descricao VARCHAR(25),
+    PRIMARY KEY ( id_funcao )
+)
